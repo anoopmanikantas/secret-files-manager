@@ -6,17 +6,17 @@ from cryptography.fernet import Fernet
 def createAccount():
     x = open('pass.key', 'rb').read()
     passw = input("Enter a password to create an account").encode()
-    a = Fernet(key=x)
-    open('login.txt', 'wb').write(a.encrypt(passw))
+    key = Fernet(key=x)
+    open('login.txt', 'wb').write(key.encrypt(passw))
 
 
 def login():
     while True:
         passw = bytes(input('enter your password to login: '), encoding='utf-8')
         x = open('pass.key', 'rb').read()
-        a = Fernet(key=x)
+        key = Fernet(key=x)
         b = open('login.txt', 'rb').read()
-        if passw == a.decrypt(b):
+        if passw == key.decrypt(b):
             print("Welcome!".center(20, '-'))
             break
 
